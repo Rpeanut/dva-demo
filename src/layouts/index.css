@@ -19,13 +19,13 @@
 }
 .header {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
   background-color: #fff;
   padding-left: 0
 }
 .content {
-  margin: 24px 16px;
+  margin: 16px 16px 24px;
   padding: 10px;
   background-color: #fff;
   min-height: 280;

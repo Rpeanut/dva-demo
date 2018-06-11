@@ -2,24 +2,16 @@ import React from "react";
 import { connect } from "dva";
 import NProgress from 'nprogress'
 import { Layout, Icon, Button, BackTop } from "antd";
-import { logo } from '../constans';
+import { logo } from '../constant';
 import Menus from './menus';
+import Bread from './bread';
 import styles from './index.css';
 
 const { Header, Sider, Content, Footer } = Layout;
 let lastHref
 class App extends React.Component {
-  state = {
-    collapsed: false
-  };
-  toggle = () => {
-    this.setState({
-      collapsed: !this.state.collapsed
-    });
-  };
   render() {
     const { href } = window.location
-    const { collapsed } = this.state;
     if (lastHref !== href) {
       NProgress.start()
       if (!this.props.loading.global) {
@@ -29,31 +21,21 @@ class App extends React.Component {
     }
     return (
       <Layout className={styles.app}>
-        <Sider
-          trigger={null}
-          collapsible
-          collapsed={collapsed}
-          style={{
-            backgroundColor: '#fff'
-          }}>
+        <Sider style={{ backgroundColor: '#fff' }}>
           <div className={styles.logoContainer}>
             <img alt="logo" src={logo} className={styles.logo} />
-            {collapsed ? '' : <span>系统管理后台</span>}
+            <span>系统管理后台</span>
           </div>
-          <Menus location={this.props.location} collapsed={collapsed} />
+          <Menus location={this.props.location} />
         </Sider>
         <Layout className={styles.contentWrap}>
           <Header className={styles.header}>
-            <Icon
-              className="trigger"
-              type={this.state.collapsed ? "menu-unfold" : "menu-fold"}
-              onClick={this.toggle}
-            />
             <Button type="dashed">
               <span>您好，xxx</span>
               <Icon type="logout" />
             </Button>
           </Header>
+          <Bread location={this.props.location} />
           <Content className={styles.content} id="mainContainer">
             <BackTop target={() => document.getElementById('mainContainer')} />
             {this.props.children}
